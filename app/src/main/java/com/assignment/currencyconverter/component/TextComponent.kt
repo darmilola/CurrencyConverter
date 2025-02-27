@@ -8,13 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,18 +48,17 @@ placeholderText: String, onFocusChange: (Boolean) -> Unit, placeholderTextSize: 
         onFocusChange(false)
     }
 
-
-    BasicTextField(value = text, modifier = modifier,textStyle = LocalTextStyle.current.copy(color = textColor, fontSize = textSize.sp), keyboardOptions = keyboardOptions, onValueChange = onValueChange, interactionSource = interactionSource,visualTransformation = CurrencyAmountTransformation(fixedCursorAtTheEnd = true),maxLines = maxLines, decorationBox = { innerTextField ->
-        Row(modifier = Modifier.fillMaxWidth()) {
-            if (text.trim().isEmpty()) {
-                PlaceholderTextComponent(placeholderText, textColor = Color.Gray, textSize = placeholderTextSize)
+        BasicTextField(value = text, modifier = modifier,textStyle = LocalTextStyle.current.copy(color = textColor, fontSize = textSize.sp), keyboardOptions = keyboardOptions, onValueChange = onValueChange, interactionSource = interactionSource,visualTransformation = CurrencyAmountTransformation(fixedCursorAtTheEnd = true),maxLines = maxLines, decorationBox = { innerTextField ->
+            Row(modifier = Modifier.fillMaxWidth()) {
+                if (text.trim().isEmpty()) {
+                    PlaceholderTextComponent(placeholderText, textColor = Color.Gray, textSize = placeholderTextSize)
+                }
             }
-        }
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
-            innerTextField()
-        }
-    })
-}
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
+                innerTextField()
+            }
+        },cursorBrush = SolidColor(Color.White), singleLine = true)
+    }
 
 @Composable
 fun PlaceholderTextComponent(placeholderTile: String, textColor: Color = Color.LightGray, textSize: Float = 18f) {

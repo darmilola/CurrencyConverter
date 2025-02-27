@@ -37,7 +37,9 @@ import com.assignment.currencyconverter.R
 import com.assignment.currencyconverter.component.TextComponent
 import com.assignment.currencyconverter.component.TextFieldComponent
 import com.assignment.currencyconverter.ui.AppTheme
+import com.assignment.currencyconverter.utils.getCurrencySymbols
 import com.assignment.currencyconverter.widgets.DropDownWidget
+import java.text.NumberFormat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +83,7 @@ class MainActivity : ComponentActivity() {
 
                             Box(modifier = Modifier.height(100.dp).fillMaxWidth().background(color = Color.Green)){
 
-
-                                val menuItems = arrayListOf<String>()
-                                menuItems.add("USD")
-                                menuItems.add("NGN")
-
-                                DropDownWidget(menuItems = menuItems, selectedIndex = 0,onMenuItemClick = {}, onExpandMenuItemClick = {})
-
-
+                                DropDownWidget(menuItems = getCurrencySymbols(), selectedIndex = 0,onMenuItemClick = {}, onExpandMenuItemClick = {})
 
                             }
 
@@ -98,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
                             Box(modifier = Modifier.height(100.dp).fillMaxWidth(0.80f).background(color = Color.Black).padding(end = 10.dp, start = 20.dp), contentAlignment = Alignment.CenterStart){
                                 TextComponent(
-                                    text = "150,000",
+                                    text = NumberFormat.getInstance().format(150000.09),
                                     fontSize = 40,
                                     textStyle = MaterialTheme.typography.titleLarge,
                                     textColor = Color.White,
@@ -110,10 +105,8 @@ class MainActivity : ComponentActivity() {
 
                             Box(modifier = Modifier.height(100.dp).fillMaxWidth().background(color = Color.Green)){
 
-                                val menuItems = arrayListOf<String>()
-                                menuItems.add("USD")
 
-                                DropDownWidget(menuItems = menuItems, selectedIndex = 0,onMenuItemClick = {}, onExpandMenuItemClick = {})
+                                DropDownWidget(menuItems = getCurrencySymbols(), selectedIndex = 0,onMenuItemClick = {}, onExpandMenuItemClick = {})
 
 
                             }
